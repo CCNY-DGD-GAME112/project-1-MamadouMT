@@ -181,3 +181,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrainAttack
   speed: 5
   direction: 1
+  hasHitPlayer: 1
