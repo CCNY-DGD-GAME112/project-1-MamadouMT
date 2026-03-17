@@ -4,7 +4,14 @@ public class TrainAttack : MonoBehaviour
 {
     public float speed = 16f;
     public int direction = 1;
-    public bool hasHitPlayer = false;
+
+    private bool scored = false;
+    private Transform player;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     public void SetDirection(int dir)
     {
@@ -13,15 +20,26 @@ public class TrainAttack : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.right * direction * speed * Time.deltaTime);
+        transform.Translate(Vector2.right * direction * speed * Time.deltaTime, Space.World);
 
-        if (transform.position.x > 12 || transform.position.x < -12)
+        // Train successfully passes the player
+        if (!scored && player != null)
         {
-            if (!hasHitPlayer)
+            if ((direction == 1 && transform.position.x > player.position.x) || (direction == -1 && transform.position.x < player.position.x)) 
             {
-                ScoreManager.instance.AddScore(1);
-            }
+                scored = true;
 
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.AddScore();
+                    Debug.Log("Train Dodged +1");
+                }
+            }
+        }
+
+        // Destroy train when off-screen
+        if (transform.position.x > 12f || transform.position.x < -12f)
+        {
             Destroy(gameObject);
         }
     }
@@ -30,9 +48,10 @@ public class TrainAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            hasHitPlayer = true;
-            Debug.Log("Game Over");
-            Time.timeScale = 0f;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 }
