@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dcb55ead33d1ba64191742fd52b386ee
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - timerText: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - audioclip: {fileID: 8300000, guid: 0780673e96dc0b14d8c358075ead5f95, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
